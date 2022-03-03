@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
+import Input from "./components/Input";
+import { List } from "./components/List";
+import GiftList from "./components/GiftList";
 
 function App() {
   const [text, setText] = useState("");
@@ -54,41 +57,10 @@ function App() {
           className={style ? "none" : "block"}
         />
       </div>
-      {data.map((gift) => {
-        return (
-          <div key={gift.id} className={style ? "none" : "block"}>
-            <img src={gift.images.fixed_width.url} alt={gift.title} />
-          </div>
-        );
-      })}
+      <GiftList data={data} style={style} />
       <List message={message} />
     </div>
   );
 }
 
 export default App;
-
-export const Input = ({ handleSubmit, handleChange, text }) => {
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" onChange={handleChange} value={text} />
-        <input type="submit" value="Post" />
-      </form>
-    </div>
-  );
-};
-
-export const List = ({ message }) => {
-  return (
-    <div>
-      {message.map((item, i) => {
-        return (
-          <div key={i} className="box">
-            <h3>{item}</h3>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
