@@ -2,11 +2,18 @@ import React from "react";
 
 const GiftList = ({ data, style }) => {
   return (
-    <div>
+    <div className="gift-container1">
       {data.map((gift) => {
         return (
           <div key={gift.id} className={style ? "none" : "block"}>
-            <img src={gift.images.fixed_width.url} alt={gift.title} />
+            <img
+              onClick={() => {
+                console.log(gift.id);
+              }}
+              src={gift.images.fixed_width.url}
+              alt={gift.title}
+              className="gif-img"
+            />
           </div>
         );
       })}

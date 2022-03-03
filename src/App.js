@@ -16,11 +16,17 @@ function App() {
   const fectchgif = async (title) => {
     const response = await axios
       .get(
-        `https://api.giphy.com/v1/gifs/search?q=${title}&api_key=${ApiKey}&limit=10`
+        `https://api.giphy.com/v1/gifs/search?q=${title}&api_key=${ApiKey}&limit=8`
       )
       .then((res) => setData(res.data.data));
     console.log(response);
   };
+
+  // const fectchSingleGif = async () => {
+  //   const response1 = await axios
+  //     .get(`https://api.giphy.com/v1/gifs/3o7ZeQBhbVGnELP4bK&api_key=${ApiKey}`)
+  //     .then((res) => console.log(res));
+  // };
 
   useEffect(() => {
     fectchgif(title);
@@ -32,24 +38,27 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newMessage = [...message, text];
-    setMessage(newMessage);
+    if (text.length > 0) {
+      setMessage(newMessage);
+    }
     setText("");
   };
   const changestyle = () => {
-    console.log("clicked");
     setStyle(!style);
   };
   return (
     <div className="App">
+      <h2>Post Message</h2>
       <Input
         handleChange={handleChange}
         text={text}
         handleSubmit={handleSubmit}
       />
       <div className="gift-container">
-        <h5 onClick={changestyle}>Gift</h5>
+        <button onClick={changestyle}>Gift</button>
         <input
           type="text"
+          placeholder="search for the gift here!"
           value={title}
           onChange={(e) => {
             setTitle(e.target.value);
