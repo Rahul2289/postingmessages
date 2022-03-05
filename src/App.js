@@ -4,13 +4,15 @@ import "./App.css";
 import Input from "./components/Input";
 import { List } from "./components/List";
 import GiftList from "./components/GiftList";
-
+import GifBoxIcon from "@mui/icons-material/GifBox";
 function App() {
   const [text, setText] = useState("");
   const [message, setMessage] = useState([]);
   const [style, setStyle] = useState(true);
   const [title, setTitle] = useState("");
   const [data, setData] = useState([]);
+  const [id, setId] = useState("");
+  const [gift, setGift] = useState("");
 
   const ApiKey = "BnB60B1zI4Hr99UlTRRpBrMEn97ECvmz";
   const fectchgif = async (title) => {
@@ -21,27 +23,34 @@ function App() {
       .then((res) => setData(res.data.data));
     console.log(response);
   };
-
-  // const fectchSingleGif = async () => {
-  //   const response1 = await axios
-  //     .get(`https://api.giphy.com/v1/gifs/3o7ZeQBhbVGnELP4bK&api_key=${ApiKey}`)
-  //     .then((res) => console.log(res));
-  // };
+  const fectchSingleGif = async (id) => {
+    const response = await axios
+      .get(`https://api.giphy.com/v1/gifs/${id}?api_key=${ApiKey}`)
+      .then((res) => setGift(res.data.data.images.fixed_width.url));
+    console.log(response);
+  };
 
   useEffect(() => {
     fectchgif(title);
   }, [title]);
+
+  useEffect(() => {
+    fectchSingleGif(id);
+  }, [id]);
 
   const handleChange = (e) => {
     setText(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const newMessage = [...message, text];
-    if (text.length > 0) {
-      setMessage(newMessage);
-    }
+
+    setMessage(newMessage);
     setText("");
+    setId("");
+    title("");
+    setStyle(false);
   };
   const changestyle = () => {
     setStyle(!style);
@@ -53,9 +62,12 @@ function App() {
         handleChange={handleChange}
         text={text}
         handleSubmit={handleSubmit}
+        style={style}
       />
       <div className="gift-container">
-        <button onClick={changestyle}>Gift</button>
+        <button onClick={changestyle} className="gift-button">
+          <GifBoxIcon fontSize="large" />
+        </button>
         <input
           type="text"
           placeholder="search for the gift here!"
@@ -66,8 +78,8 @@ function App() {
           className={style ? "none" : "block"}
         />
       </div>
-      <GiftList data={data} style={style} />
-      <List message={message} />
+      <GiftList data={data} style={style} setId={setId} />
+      <List message={message} gift={gift} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ handleSubmit, handleChange, text }) => {
+const Input = ({ handleSubmit, handleChange, text, style }) => {
   return (
     <div className="input-container">
       <form onSubmit={handleSubmit} className="form">
@@ -11,7 +11,9 @@ const Input = ({ handleSubmit, handleChange, text }) => {
           className="text-input"
           placeholder="write something here.."
         />
-        <button type="submit">Post</button>
+        <button className="post-button" type="submit">
+          Post
+        </button>
       </form>
     </div>
   );

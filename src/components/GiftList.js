@@ -1,14 +1,14 @@
 import React from "react";
 
-const GiftList = ({ data, style }) => {
+const GiftList = ({ data, setId, style }) => {
   return (
     <div className="gift-container1">
       {data.map((gift) => {
         return (
-          <div key={gift.id} className={style ? "none" : "block"}>
+          <div key={gift.id}>
             <img
               onClick={() => {
-                console.log(gift.id);
+                setId(gift.id);
               }}
               src={gift.images.fixed_width.url}
               alt={gift.title}
