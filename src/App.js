@@ -5,6 +5,7 @@ import Input from "./components/Input";
 import { List } from "./components/List";
 import GiftList from "./components/GiftList";
 import GifBoxIcon from "@mui/icons-material/GifBox";
+
 function App() {
   const [text, setText] = useState("");
   const [message, setMessage] = useState([]);
@@ -15,6 +16,8 @@ function App() {
   const [gift, setGift] = useState("");
 
   const ApiKey = "BnB60B1zI4Hr99UlTRRpBrMEn97ECvmz";
+
+  /* Fetching All Gif with limit of 10*/
   const fectchgif = async (title) => {
     const response = await axios
       .get(
@@ -23,6 +26,10 @@ function App() {
       .then((res) => setData(res.data.data));
     console.log(response);
   };
+
+  /* Fetching Single Gif with an id which get by clicking on a selected gift*/
+  /*ID will get from child component */
+
   const fectchSingleGif = async (id) => {
     const response = await axios
       .get(`https://api.giphy.com/v1/gifs/${id}?api_key=${ApiKey}`)
@@ -32,29 +39,28 @@ function App() {
 
   useEffect(() => {
     fectchgif(title);
-  }, [title]);
-
-  useEffect(() => {
     fectchSingleGif(id);
-  }, [id]);
+  }, [title, id]);
 
+  //handling text input value
   const handleChange = (e) => {
     setText(e.target.value);
   };
+
+  //Submiting Post
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const newMessage = [...message, text];
-
     setMessage(newMessage);
     setText("");
-    setId("");
-    title("");
-    setStyle(false);
+    setTitle("");
   };
+
+  //Changing style
   const changestyle = () => {
     setStyle(!style);
   };
+
   return (
     <div className="App">
       <h2>Post Message</h2>
@@ -63,6 +69,7 @@ function App() {
         text={text}
         handleSubmit={handleSubmit}
         style={style}
+        changestyle={changestyle}
       />
       <div className="gift-container">
         <button onClick={changestyle} className="gift-button">

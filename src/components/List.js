@@ -1,6 +1,8 @@
 import React from "react";
-
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
+//Displaying the Posts with the Gift and message
+
 export const List = ({ message, gift }) => {
   return (
     <div className="message-container">

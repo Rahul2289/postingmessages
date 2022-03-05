@@ -1,6 +1,8 @@
 import React from "react";
 
-const Input = ({ handleSubmit, handleChange, text, style }) => {
+// Textinput and post button
+
+const Input = ({ handleSubmit, handleChange, text, changestyle }) => {
   return (
     <div className="input-container">
       <form onSubmit={handleSubmit} className="form">
@@ -11,7 +13,7 @@ const Input = ({ handleSubmit, handleChange, text, style }) => {
           className="text-input"
           placeholder="write something here.."
         />
-        <button className="post-button" type="submit">
+        <button className="post-button" type="submit" onClick={changestyle}>
           Post
         </button>
       </form>
