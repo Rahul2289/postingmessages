@@ -13,7 +13,7 @@ const Input = ({ handleSubmit, handleChange, text, changestyle }) => {
           className="text-input"
           placeholder="write something here.."
         />
-        <button className="post-button" type="submit" onClick={changestyle}>
+        <button className="btn-grad" type="submit" onClick={changestyle}>
           Post
         </button>
       </form>
